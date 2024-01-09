@@ -1,30 +1,31 @@
 import { useState } from "react";
 
 const App = () => {
-  //* Podemos almacenar más de un estado
-  // const [left, setLeft] = useState(0);
-  // const [right, setRight] = useState(0);
-
-  //* También podemos almacenar un objeto como estado
-  const [clicks, setClicks] = useState({ left: 0, right: 0 });
+  const [left, setLeft] = useState(0);
+  const [right, setRight] = useState(0);
+  const [allClicks, setAllClicks] = useState([]);
 
   // Event handlers
+  //* Es necesario recordar que no se deben mutar directamente los estados
   const handleLeftClick = () => {
-    // using spread syntax
-    setClicks({ ...clicks, left: clicks.left + 1 });
+    // concat no muta el array sino que crea una copia
+    setAllClicks(allClicks.concat("L"));
+    setLeft(left + 1);
   };
 
   const handleRightClick = () => {
-    // using spread syntax
-    setClicks({ ...clicks, right: clicks.right + 1 });
+    // concat no muta el array sino que crea una copia
+    setAllClicks(allClicks.concat("R"));
+    setRight(right + 1);
   };
 
   return (
     <div>
-      {clicks.left}
+      {left}
       <button onClick={handleLeftClick}>left</button>
       <button onClick={handleRightClick}>right</button>
-      {clicks.right}
+      {right}
+      <p>{allClicks.join(" ")}</p>
     </div>
   );
 };
