@@ -1,13 +1,21 @@
 const Hello = (props) => {
+  //* Para manipular el objeto props
+  //* Podemos almacenar en variables sus valores
+  // const name = props.name;
+  // const age = props.age;
+
+  //* También podemos usar destructuring assignment
+  const { name, age } = props;
+
   const bornYear = () => {
     const yearNow = new Date().getFullYear();
-    return yearNow - props.age;
+    return yearNow - age;
   };
 
   return (
     <div>
       <p>
-        Hello {props.name}, you are {props.age} years old.
+        Hello {name}, you are {age} years old.
       </p>
       <p>So you were probably born in {bornYear()};</p>
     </div>
