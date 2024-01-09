@@ -10,13 +10,13 @@ const App = () => {
 
   // Event handlers
   const handleLeftClick = () => {
-    const newClicks = { left: clicks.left + 1, right: clicks.right };
-    setClicks(newClicks);
+    // using spread syntax
+    setClicks({ ...clicks, left: clicks.left + 1 });
   };
 
   const handleRightClick = () => {
-    const newClicks = { left: clicks.left, right: clicks.right + 1 };
-    setClicks(newClicks);
+    // using spread syntax
+    setClicks({ ...clicks, right: clicks.right + 1 });
   };
 
   return (
