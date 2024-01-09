@@ -1,4 +1,5 @@
 const Hello = (props) => {
+  // Esta es una helper function o función auxiliar
   const bornYear = () => {
     const yearNow = new Date().getFullYear();
     return yearNow - props.age;
