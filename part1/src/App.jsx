@@ -1,17 +1,15 @@
 import { useState } from "react";
 
-const Display = (props) => {
-  return <div>{props.counter}</div>;
-};
+const Display = ({ counter }) => <div>{counter}</div>;
 
-const Button = (props) => {
-  return <button onClick={props.onClick}>{props.text}</button>;
-};
+// Por convención los props de event handlers deben comenzar con 'on' seguido de una letra mayúscula
+// En este caso mantenemos el nombre 'onClick', pero podríamos haberlo nombrado 'onSmash'
+const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>;
 
 const App = () => {
   const [counter, setCounter] = useState(0);
 
-  // Event handlers
+  // Event handlers: Función que se ejecuta cuando ocurre un evento
   const increaseByOne = () => {
     setCounter(counter + 1);
   };
