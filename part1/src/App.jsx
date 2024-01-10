@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Button = (props) => <button onClick={props.onClick}>{props.text}</button>;
+const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>;
 
 const App = () => {
   const [value, setValue] = useState(10);
