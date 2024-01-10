@@ -1,48 +1,21 @@
 import { useState } from "react";
 
-const History = ({ allClicks }) => {
-  if (allClicks.length === 0) {
-    return <div>the app is used by pressing the buttons</div>;
-  }
-  return <div>button press history: {allClicks.join(" ")}</div>;
-};
-
-const Button = ({ onClick, text }) => {
-  return <button onClick={onClick}>{text}</button>;
-};
-
 const App = () => {
-  const [left, setLeft] = useState(0);
-  const [right, setRight] = useState(0);
-  const [allClicks, setAllClicks] = useState([]);
-  const [total, setTotal] = useState(0);
+  const [value, setValue] = useState(10);
 
-  // Event handlers
-  //* Es necesario recordar que no se deben mutar directamente los estados
-  const handleLeftClick = () => {
-    // concat no muta el array sino que crea una copia
-    setAllClicks(allClicks.concat("L"));
-    const updateLeft = left + 1;
-    setLeft(updateLeft);
-    setTotal(updateLeft + right);
-  };
-
-  const handleRightClick = () => {
-    // concat no muta el array sino que crea una copia
-    setAllClicks(allClicks.concat("R"));
-    const updateRight = right + 1;
-    setRight(updateRight);
-    setTotal(updateRight + left);
+  // Esta función devuelve una función
+  const hello = () => {
+    const handler = () => console.log("hello world");
+    return handler;
+    // Es decir, devuelve: () => console.log("hello world")
   };
 
   return (
     <div>
-      {left}
-      <Button onClick={handleLeftClick} text="left" />
-      <Button onClick={handleRightClick} text="right" />
-      {right}
-      <History allClicks={allClicks} />
-      <p>total {total}</p>
+      {value}
+      {/* Los event handlers siempre deben ser una función o una referencia a una función */}
+      {/* Este event handler está configurado para una llamada de función, pero funciona correctamente porque lo que devuelve hello() es una función: () => console.log("hello world") */}
+      <button onClick={hello()}>Hello</button>
     </div>
   );
 };
