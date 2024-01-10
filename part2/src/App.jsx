@@ -4,7 +4,9 @@ import Note from "./components/Note";
 const App = (props) => {
   const [notes, setNotes] = useState(props.notes);
   const [newNote, setNewNote] = useState("");
+  const [showAll, setShowAll] = useState(true);
 
+  // Event handlers
   const addNote = (event) => {
     // event.preventDefault() evita que la página se actualice al enviar el formulario
     event.preventDefault();
@@ -20,9 +22,16 @@ const App = (props) => {
   };
 
   const handleNoteChange = (event) => {
-    console.log(event.target.value);
     setNewNote(event.target.value);
   };
+
+  const handleToggleImportance = () => {
+    setShowAll(!showAll);
+  };
+
+  const notesToShow = showAll
+    ? notes
+    : notes.filter((x) => x.important === true);
 
   return (
     <div>
@@ -31,8 +40,11 @@ const App = (props) => {
         <input value={newNote} onChange={handleNoteChange} />
         <button type="submit">save</button>
       </form>
+      <button onClick={handleToggleImportance}>
+        Show {showAll ? "important" : "all"} notes
+      </button>
       <ul>
-        {notes.map((x) => (
+        {notesToShow.map((x) => (
           <Note key={x.id} content={x.content} />
         ))}
       </ul>
