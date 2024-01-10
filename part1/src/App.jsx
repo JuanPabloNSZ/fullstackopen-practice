@@ -4,18 +4,18 @@ const App = () => {
   const [value, setValue] = useState(10);
 
   // Esta función devuelve una función
-  const hello = () => {
-    const handler = () => console.log("hello world");
+  const hello = (who) => {
+    const handler = () => console.log("hello", who);
     return handler;
-    // Es decir, devuelve: () => console.log("hello world")
   };
 
   return (
     <div>
       {value}
-      {/* Los event handlers siempre deben ser una función o una referencia a una función */}
-      {/* Este event handler está configurado para una llamada de función, pero funciona correctamente porque lo que devuelve hello() es una función: () => console.log("hello world") */}
-      <button onClick={hello()}>Hello</button>
+      {/* Podemos llamar a la misma función y personalizarla con distintos argumentos */}
+      <button onClick={hello("world")}>Hello world</button>
+      <button onClick={hello("react")}>Hello react</button>
+      <button onClick={hello("function")}>Hello function</button>
     </div>
   );
 };
