@@ -16,19 +16,9 @@
       "important": true
     },
     {
-      "id": "8f1d",
-      "content": "hola",
-      "important": false
-    },
-    {
-      "id": "5134",
-      "content": "chao",
-      "important": false
-    },
-    {
-      "id": "1f10",
-      "content": "hi",
-      "important": true
+      "content": "new note",
+      "important": false,
+      "id": 4
     }
   ]
 }
