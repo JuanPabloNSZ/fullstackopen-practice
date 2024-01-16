@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import Note from "./components/Note";
+import noteService from "./services/notes";
 
 const App = () => {
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState("");
   const [showAll, setShowAll] = useState(true);
 
+  //* uso de noteService para obtener datos desde el servidor
   useEffect(() => {
-    axios.get("http://localhost:3001/notes").then((x) => setNotes(x.data));
+    noteService.getAll().then((response) => setNotes(response.data));
   }, []);
 
   // Event handlers
@@ -21,7 +22,8 @@ const App = () => {
       important: Math.random() < 0.5,
     };
 
-    axios.post("http://localhost:3001/notes", noteObject).then((response) => {
+    //* uso de noteService para crear una nueva nota en el servidor
+    noteService.create(noteObject).then((response) => {
       setNotes(notes.concat(response.data));
       setNewNote("");
     });
@@ -50,15 +52,13 @@ const App = () => {
         ...selectedNote,
         important: !selectedNote.important,
       };
-      // Usando axios agrega ese nuevo objeto en el lugar del objeto anterior
-      axios
-        .put(`http://localhost:3001/notes/${id}`, noteObject)
-        .then((response) => {
-          // En el arreglo de notas almacenamos una copia de todas las notas junto con la nota modificada, según la siguiente lógica:
-          // Si el id recibido coincide con el id de alguna nota, se reemplaza esa nota con los datos recibidos desde el servidor
-          // Si el id recidido no coincide, simplemente copia el elemento original
-          setNotes(notes.map((x) => (x.id === id ? response.data : x)));
-        });
+
+      //* uso de noteService para modificar una nota en el servidor
+      noteService
+        .update(id, noteObject)
+        .then((response) =>
+          setNotes(notes.map((x) => (x.id === id ? response.data : x)))
+        );
     };
   };
 
