@@ -58,7 +58,14 @@ const App = () => {
         .update(id, noteObject)
         .then((returnedNote) =>
           setNotes(notes.map((x) => (x.id === id ? returnedNote : x)))
-        );
+        )
+        .catch((error) => {
+          alert(
+            `the note '${selectedNote.content}' was already deleted from server`
+          );
+          setNotes(notes.filter((x) => x.id !== id));
+          console.log(error);
+        });
     };
   };
 
