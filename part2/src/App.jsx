@@ -9,7 +9,7 @@ const App = () => {
 
   //* uso de noteService para obtener datos desde el servidor
   useEffect(() => {
-    noteService.getAll().then((response) => setNotes(response.data));
+    noteService.getAll().then((initialNotes) => setNotes(initialNotes));
   }, []);
 
   // Event handlers
@@ -22,9 +22,9 @@ const App = () => {
       important: Math.random() < 0.5,
     };
 
-    //* uso de noteService para crear una nueva nota en el servidor
-    noteService.create(noteObject).then((response) => {
-      setNotes(notes.concat(response.data));
+    // * uso de noteService para crear una nueva nota en el servidor
+    noteService.create(noteObject).then((returnedNote) => {
+      setNotes(notes.concat(returnedNote));
       setNewNote("");
     });
   };
@@ -47,7 +47,7 @@ const App = () => {
       // Almacena la nota según el id recibido
       const selectedNote = notes.find((x) => x.id === id);
       // Crea un objeto con la copia de las propiedades y modifica la propiedad deseada
-      // Es necesario crear un nuevo objeto porque no podemos mutar directamente un estado
+      // Es necesario crear un nuevo objeto porque no debemos mutar directamente un estado
       const noteObject = {
         ...selectedNote,
         important: !selectedNote.important,
@@ -56,8 +56,8 @@ const App = () => {
       //* uso de noteService para modificar una nota en el servidor
       noteService
         .update(id, noteObject)
-        .then((response) =>
-          setNotes(notes.map((x) => (x.id === id ? response.data : x)))
+        .then((returnedNote) =>
+          setNotes(notes.map((x) => (x.id === id ? returnedNote : x)))
         );
     };
   };
