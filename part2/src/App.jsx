@@ -7,7 +7,7 @@ const App = () => {
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState("");
   const [showAll, setShowAll] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("some error happened...");
+  const [errorMessage, setErrorMessage] = useState(null);
 
   //* uso de noteService para obtener datos desde el servidor
   useEffect(() => {
@@ -62,11 +62,13 @@ const App = () => {
           setNotes(notes.map((x) => (x.id === id ? returnedNote : x)))
         )
         .catch((error) => {
-          alert(
-            `the note '${selectedNote.content}' was already deleted from server`
+          setErrorMessage(
+            `Note '${selectedNote.content}' was already remove from server`
           );
+          setTimeout(() => {
+            setErrorMessage(null);
+          }, 5000);
           setNotes(notes.filter((x) => x.id !== id));
-          console.log(error);
         });
     };
   };
