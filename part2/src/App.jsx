@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import Note from "./components/Note";
+import Notification from "./components/Notification";
 import noteService from "./services/notes";
 
 const App = () => {
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState("");
   const [showAll, setShowAll] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("some error happened...");
 
   //* uso de noteService para obtener datos desde el servidor
   useEffect(() => {
@@ -72,6 +74,7 @@ const App = () => {
   return (
     <div>
       <h1>Notes</h1>
+      <Notification message={errorMessage} />
       <form onSubmit={addNote}>
         <input value={newNote} onChange={handleNoteChange} />
         <button type="submit">save</button>
