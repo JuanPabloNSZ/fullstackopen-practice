@@ -75,6 +75,10 @@ const App = () => {
     };
   };
 
+  if (!notes) {
+    return null;
+  }
+
   return (
     <div>
       <h1>Notes</h1>
