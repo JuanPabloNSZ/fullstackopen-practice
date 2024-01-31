@@ -75,10 +75,12 @@ const App = () => {
     };
   };
 
+  // Si notes no se ha inicializado, el componente devulve null
   if (!notes) {
     return null;
   }
 
+  // Cuando notes recibe los datos del backend, el componente se renderiza correctamente
   return (
     <div>
       <h1>Notes</h1>
