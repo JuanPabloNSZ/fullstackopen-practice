@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import Note from "./components/Note";
 import Notification from "./components/Notification";
+import Footer from "./components/Footer";
 import noteService from "./services/notes";
 
 const App = () => {
-  const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState(null);
   const [newNote, setNewNote] = useState("");
   const [showAll, setShowAll] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -69,6 +70,7 @@ const App = () => {
             setErrorMessage(null);
           }, 5000);
           setNotes(notes.filter((x) => x.id !== id));
+          console.log(error);
         });
     };
   };
@@ -93,6 +95,7 @@ const App = () => {
           />
         ))}
       </ul>
+      <Footer />
     </div>
   );
 };
